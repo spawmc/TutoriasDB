@@ -1,48 +1,48 @@
-DROP DATABASE tutorias;
+-- DROP DATABASE tutorias;
 CREATE DATABASE tutorias;
-SHOW DATABASES;
-drop database coordinaciontutoria;
-create database coordinaciontutoria;
+-- SHOW DATABASES;
+-- drop DATABASE coordinaciontutoria;
+CREATE DATABASE coordinaciontutoria;
 use coordinaciontutoria;
-create table alumno(
-    matricula varchar(10) primary key not null,
-    nombre varchar(20) not null,
-    apellidoP varchar(20) not null,
-    apellidoM varchar(20) not null,
-    email varchar(20) not null,
-    semestre int(2) not null,
-    diaIngreso int(2) not null,
-    mesIngreso int(2) not null,
-    yearIngreso int(4) not null
+CREATE table alumno(
+    matricula VARCHAR(10) PRIMARY KEY NOT NULL,
+    nombre VARCHAR(20) NOT NULL,
+    apellidoP VARCHAR(20) NOT NULL,
+    apellidoM VARCHAR(20) NOT NULL,
+    email VARCHAR(20) NOT NULL,
+    semestre INT(2) NOT NULL,
+    diaIngreso INT(2) NOT NULL,
+    mesIngreso INT(2) NOT NULL,
+    yearIngreso INT(4) NOT NULL
 );
-create table alumno_tutor(
-    matricula varchar(10) not null,
-    numpersonalTutor int(2) not null,
+CREATE table alumno_tutor(
+    matricula VARCHAR(10) NOT NULL,
+    numpersonalTutor INT(2) NOT NULL,
     FOREIGN KEY (matricula) REFERENCES alumno(matricula)
 );
-create table tutor(
-    numpersonal int(2) primary key not null,
-    nombre varchar(20) not null,
-    apellidoP varchar(20) not null,
-    apellidoM varchar(20) not null,
-    email varchar(20) not null
+CREATE table tutor(
+    numpersonal INT(2) PRIMARY KEY NOT NULL,
+    nombre VARCHAR(20) NOT NULL,
+    apellidoP VARCHAR(20) NOT NULL,
+    apellidoM VARCHAR(20) NOT NULL,
+    email VARCHAR(20) NOT NULL
 );
-create table tutoria(
-    NoTutoria int(2) not null,
-    PeriodoInicio date not null,
-    PeriodoFinal date not null,
-    numpersonalTutor int(2),
-    matriculaAlumno varchar(10) not null,
-    asunto varchar(30),
-    asistencia varchar(6),
+CREATE table tutoria(
+    noTutoria INT(2) NOT NULL,
+    periodoInicio DATE NOT NULL,
+    periodoFinal DATE NOT NULL,
+    numpersonalTutor INT(2),
+    matriculaAlumno VARCHAR(10) NOT NULL,
+    asunto VARCHAR(30),
+    asistencia VARCHAR(6),
     horaTutoria time,
-    diaTutoria int(2),
-    mesTutoria int(2),
-    yearTutoria int(4),
-    primary key(
-        NoTutoria,
-        PeriodoInicio,
-        PeriodoFinal,
+    diaTutoria INT(2),
+    mesTutoria INT(2),
+    yearTutoria INT(4),
+    PRIMARY KEY(
+        noTutoria,
+        periodoInicio,
+        periodoFinal,
         numpersonalTutor
     ),
     FOREIGN KEY (numpersonalTutor) REFERENCES tutor(numpersonal),

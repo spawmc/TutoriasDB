@@ -39,6 +39,7 @@ CREATE table tutoria(
     diaTutoria INT(2),
     mesTutoria INT(2),
     yearTutoria INT(4),
+    lugarTutoria varchar(30),
     PRIMARY KEY(
         noTutoria,
         periodoInicio,

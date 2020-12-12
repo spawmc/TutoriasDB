@@ -21,12 +21,13 @@ CREATE table tutor (
     nombre VARCHAR(20) NOT NULL,
     apellidoP VARCHAR(20) NOT NULL,
     apellidoM VARCHAR(20) NOT NULL,
-    email VARCHAR(20) NOT NULL
+    email VARCHAR(30) NOT NULL
 );
 CREATE table alumno_tutor (
     matricula VARCHAR(10) NOT NULL,
     numpersonalTutor INT(2) NOT NULL,
-    FOREIGN KEY (matricula) REFERENCES alumno(matricula)
+    FOREIGN KEY (matricula) REFERENCES alumno(matricula),
+    FOREIGN KEY (numpersonalTutor) REFERENCES tutor(numpersonal)
 );
 CREATE table tutoria (
     noTutoria INT(20) NOT NULL,
@@ -79,8 +80,8 @@ insert into alumno_tutor (matricula, numpersonal) values('S19019862', 190159832)
 insert into alumno_tutor (matricula, numpersonal) values('S19013489', 190159832);
 
  /* tutoria */
-insert into tutoria ( NoTutoria, PeriodoInicial, PeriodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 1, '2020/09/08', '2020/01/04', 22, 'S19012345', 'Tareas', 'Si', '09:30:00', 15, 10, 2020, 'Aula 102' );
-insert into tutoria ( NoTutoria, PeriodoInicial, PeriodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 2, '2020/09/08', '2020/01/04', 22, 'S19012345', 'Preeincripcion', 'Si', '09:30:00', 15, 10, 2020, 'Aula 102' ); 
-insert into tutoria ( NoTutoria, PeriodoInicial, PeriodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 3, '2020/09/08', '2020/01/04', 22, 'S19012345', 'Tareas', 'Si', '09:30:00', 15, 10, 2020, 'Aula 102' ); 
-insert into tutoria ( NoTutoria, PeriodoInicial, PeriodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 2, '2020/09/08', '2020/01/04', 22, 'S19012345', 'Tareas', 'Si', '09:30:00', 15, 10, 2020, 'Aula 102' );
-insert into tutoria ( NoTutoria, PeriodoInicial, PeriodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 1, '2020/09/08', '2020/01/04', 22, 'S19012345', 'Tareas', 'Si', '09:30:00', 15, 10, 2020, 'Aula 102' );
+insert into tutoria ( NoTutoria, PeriodoInicial, PeriodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 1, '2020/09/08', '2020/01/04', 190152837, 'S19012345', 'Tareas', 'Si', '15:30:00', 05, 09, 2020, 'Aula 102' );
+insert into tutoria ( NoTutoria, PeriodoInicial, PeriodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 2, '2020/09/08', '2020/01/04', 190159832, 'S19012345', 'Preeincripcion', 'Si', '12:30:00', 15, 11, 2020, 'Aula 502' ); 
+insert into tutoria ( NoTutoria, PeriodoInicial, PeriodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 3, '2020/09/08', '2020/01/04', 190159832, 'S19012345', 'Planeacion', 'Si', '09:30:00', 15, 12, 2020, 'Aula 106' ); 
+insert into tutoria ( NoTutoria, PeriodoInicial, PeriodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 2, '2020/09/08', '2020/01/04', 190159832, 'S19012345', 'Preeincripcion', 'Si', '12:50:00', 15, 11, 2020, 'Aula 502' );
+insert into tutoria ( NoTutoria, PeriodoInicial, PeriodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 1, '2020/09/08', '2020/01/04', 190152837, 'S19012345', 'Tareas', 'Si', '10:30:00', 04, 09, 2020, 'Aula 102' );

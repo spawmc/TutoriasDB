@@ -24,7 +24,7 @@ CREATE table tutor (
     email VARCHAR(30) NOT NULL
 );
 CREATE table alumno_tutor (
-    matricula VARCHAR(10) NOT NULL,
+    matricula VARCHAR(10) NOT NUL,
     numpersonalTutor INT(9) NOT NULL,
     PRIMARY KEY(
         matricula,
@@ -37,10 +37,10 @@ CREATE table tutoria (
     noTutoria INT(20) NOT NULL,
     periodoInicio DATE NOT NULL,
     periodoFinal DATE NOT NULL,
-    numpersonalTutor INT(2),
+    numpersonalTutor INT(2) NOT NULL,
     matriculaAlumno VARCHAR(10) NOT NULL,
     asunto VARCHAR(30),
-    asistencia VARCHAR(6),
+    asistencia VARCHAR(2),
     horaTutoria time,
     diaTutoria INT(2),
     mesTutoria INT(2),
@@ -85,11 +85,11 @@ insert into alumno_tutor (matricula, numpersonalTutor) values('S19019862', 19015
 insert into alumno_tutor (matricula, numpersonalTutor) values('S19013489', 190159832);
 
  /* tutoria */
-insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 1, '2020/09/08', '2020/01/04', 190152837, 'S19012345', 'Tareas', 'Si', '15:30:00', 05, 09, 2020, 'Aula 102' );
-insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 2, '2020/09/08', '2020/01/04', 190152837, 'S19013687', 'Preeincripcion', 'Si', '12:30:00', 15, 11, 2020, 'Aula 502' ); 
-insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 3, '2020/09/08', '2020/01/04', 190159832, 'S19012394', 'Planeacion', 'Si', '09:30:00', 15, 12, 2020, 'Aula 106' ); 
-insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 3, '2020/09/08', '2020/01/04', 190152837, 'S19011567', 'Preeincripcion', 'Si', '12:50:00', 15, 11, 2020, 'Aula 502' );
-insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 1, '2020/09/08', '2020/01/04', 190159832, 'S19019862', 'Tareas', 'Si', '10:30:00', 04, 09, 2020, 'Aula 102' );
+insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 1, '2020/09/08', '2020/01/04', 190152837, 'S19012345', 'Tareas', '', '15:30:00', 05, 09, 2020, 'Aula 102' );
+insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 2, '2020/09/08', '2020/01/04', 190152837, 'S19013687', 'Preeincripcion', '', '12:30:00', 15, 11, 2020, 'Aula 502' ); 
+insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 3, '2020/09/08', '2020/01/04', 190159832, 'S19012394', 'Planeacion', '', '09:30:00', 15, 12, 2020, 'Aula 106' ); 
+insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 3, '2020/09/08', '2020/01/04', 190152837, 'S19011567', 'Preeincripcion', '', '12:50:00', 15, 11, 2020, 'Aula 502' );
+insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 1, '2020/09/08', '2020/01/04', 190159832, 'S19019862', 'Tareas', '', '10:30:00', 04, 09, 2020, 'Aula 102' );
 
 /* Realizar las siguientes consultas:
 o 4 consultas que involucren una sola tabla
@@ -111,21 +111,75 @@ consulta en álgebra relacional, la consulta en sql y la tabla resultado. */
 
 /* update */
 
+-- Actualizar la asistencia del alumno Jose de Jesus Hernandez
+UPDATE tutoria
+SET asistencia = 'Si'
+WHERE matriculaAlumno = (
+        SELECT matricula
+        from alumno
+        WHERE nombre = 'Jose'
+            AND apellidoP = 'de Jesus'
+            AND apellidoM = 'Hernandez'
+    )
+
+-- Actualizar la asistencia del alumno S19012345
+UPDATE tutoria
+SET asistencia = 'No'
+WHERE matriculaAlumno = 'S19013687';
+
+-- Actualizar lugar de tutoria
+UPDATE tutoria
+SET lugarTutoria = 'Aula 106'
+WHERE numpersonalTutor = 190152837 AND matriculaAlumno = 'S19013687'
+
+-- Cambiar tutor del alumno Jose de Jesus Hernandez
+UPDATE alumno_tutor
+SET numpersonalTutor = (
+        SELECT numpersonal
+        FROM tutor
+        WHERE nombre = 'Nestor'
+            AND apellidoP = 'Pujol'
+            AND apellidoM = 'Beltran'
+    )
+WHERE numpersonalTutor = (
+        SELECT numpersonal
+        FROM tutor
+        WHERE nombre = 'Alizia'
+            AND apellidoP = 'Lozano'
+            AND apellidoM = 'Marques'
+    )
+    AND matricula = (
+        SELECT matricula
+        from alumno
+        WHERE nombre = 'Jose'
+            AND apellidoP = 'de Jesus'
+            AND apellidoM = 'Hernandez'
+    )
+
 /* delete */
 
 /* 2 vistas */
+
+-- nombre completo
 
 /* 2 cuentas de usuario con diferentes privilegios */
 
 CREATE USER 'mantenedor'@'localhost' IDENTIFIED BY 'mantenedor123'
 GRANT ALL PRIVILEGES ON Tutorias.* TO mantenedor@'localhost' WITH GRANT OPTION;
+SHOW GRANTS FOR 'mantenedor'@'localhost';
 
 CREATE USER 'directivo'@'localhost' IDENTIFIED BY 'directivo123'
 GRANT SELECT ON Tutorias.* TO 'directivo'@'localhost'
+SHOW GRANTS FOR 'directivo' @'localhost';
 
 CREATE USER 'secretariaAcademica'@'localhost' IDENTIFIED BY 'secretaria123'
 GRANT SELECT, UPDATE ON Tutorias.alumno TO 'secretariaAcademica'@'localhost'
-
+SHOW GRANTS FOR 'secretariaAcademica' @'localhost';
 /* 1 trigger */
 
 /* Un procedimiento almacenado */
+-- Actualizar semestre --
+
+DELIMITER //
+CREATE PROCEDURE aumentarSemestre()
+BEGIN

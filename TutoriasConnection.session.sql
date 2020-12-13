@@ -91,16 +91,6 @@ insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, 
 insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 3, '2020/09/08', '2020/01/04', 190152837, 'S19011567', 'Preeincripcion', '', '12:50:00', 15, 11, 2020, 'Aula 502' );
 insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 1, '2020/09/08', '2020/01/04', 190159832, 'S19019862', 'Tareas', '', '10:30:00', 04, 09, 2020, 'Aula 102' );
 
-/* Realizar las siguientes consultas:
-o 4 consultas que involucren una sola tabla
-o 4 consultas que involucren más de una tabla
-o 4 consultas que incluyan una subconsulta
-o 4 consultas que incluyan funciones de agregación
-o 4 consultas update
-o 4 consultas delete
-Nota: Para cada consulta es necesario escribir: el enunciado de la consulta, la
-consulta en álgebra relacional, la consulta en sql y la tabla resultado. */
-
 /* Sola tabla */
 
 /* Mas de una tabla */
@@ -111,7 +101,7 @@ consulta en álgebra relacional, la consulta en sql y la tabla resultado. */
 
 /* update */
 
--- Actualizar la asistencia del alumno Jose de Jesus Hernandez
+-- Actualizar la asistencia del alumno Jose de Jesus Hernandez --
 UPDATE tutoria
 SET asistencia = 'Si'
 WHERE matriculaAlumno = (
@@ -122,17 +112,17 @@ WHERE matriculaAlumno = (
             AND apellidoM = 'Hernandez'
     )
 
--- Actualizar la asistencia del alumno S19012345
+-- Actualizar la asistencia del alumno S19012345 --
 UPDATE tutoria
 SET asistencia = 'No'
 WHERE matriculaAlumno = 'S19013687';
 
--- Actualizar lugar de tutoria
+-- Actualizar lugar de tutoria --
 UPDATE tutoria
 SET lugarTutoria = 'Aula 106'
 WHERE numpersonalTutor = 190152837 AND matriculaAlumno = 'S19013687'
 
--- Cambiar tutor del alumno Jose de Jesus Hernandez
+-- Cambiar tutor del alumno Jose de Jesus Hernandez --
 UPDATE alumno_tutor
 SET numpersonalTutor = (
         SELECT numpersonal
@@ -158,9 +148,26 @@ WHERE numpersonalTutor = (
 
 /* delete */
 
+-- Eliminar informacion de la primera tutoria del alumno Alberto Perez Galvan --
+
+DELETE FROM tutoria
+WHERE matriculaAlumno = (
+        SELECT matricula
+        from alumno
+        WHERE nombre = 'Alberto'
+            AND apellidoP = 'Perez'
+            AND apellidoM = 'Galvan'
+    )
+    AND noTutoria = 1;
+
+-- Eliminar alumnos que superaron los 10 semestres --
+DELETE FROM alumno
+WHERE semestre >= 10;
+
+
 /* 2 vistas */
 
--- nombre completo
+-- nombre completo de los alumnos --
 CREATE VIEW nombreCompletoAlumno AS
 SELECT nombre,
     apellidoP,
@@ -170,6 +177,8 @@ FROM alumno;
 -- DROP VIEW nombreCompletoAlumno;
 
 SELECT * FROM nombreCompletoAlumno;
+
+-- nombre y matricula de los alumnos que asistieron a la tutoria -- 
 
 CREATE VIEW nombreAlumnosAsistentes AS
 SELECT matricula,
@@ -184,6 +193,7 @@ WHERE tutoria.asistencia = 'Si'
 -- DROP VIEW nombreAlumnosAsistentes;
 
 SELECT * FROM nombreAlumnosAsistentes;
+
 /* cuentas de usuario con diferentes privilegios */
 
 CREATE USER 'mantenedor'@'localhost' IDENTIFIED BY 'mantenedor123'
@@ -198,6 +208,8 @@ CREATE USER 'secretariaAcademica'@'localhost' IDENTIFIED BY 'secretaria123'
 GRANT SELECT, UPDATE ON Tutorias.alumno TO 'secretariaAcademica'@'localhost'
 SHOW GRANTS FOR 'secretariaAcademica' @'localhost';
 /* 1 trigger */
+
+
 
 /* Un procedimiento almacenado */
 -- Actualizar semestre --

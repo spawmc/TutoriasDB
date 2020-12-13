@@ -211,9 +211,13 @@ SHOW GRANTS FOR 'secretariaAcademica' @'localhost';
 
 
 
-/* Un procedimiento almacenado */
--- Actualizar semestre --
+/* Procedimiento almacenado */
 
+-- Actualizar semestre --
 DELIMITER //
-CREATE PROCEDURE aumentarSemestre()
-BEGIN
+CREATE PROCEDURE aumentarSemestre() BEGIN
+UPDATE alumno
+SET semestre = (semestre + 1);
+END;
+//
+DELIMITER ;

@@ -90,3 +90,42 @@ insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, 
 insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 3, '2020/09/08', '2020/01/04', 190159832, 'S19012394', 'Planeacion', 'Si', '09:30:00', 15, 12, 2020, 'Aula 106' ); 
 insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 3, '2020/09/08', '2020/01/04', 190152837, 'S19011567', 'Preeincripcion', 'Si', '12:50:00', 15, 11, 2020, 'Aula 502' );
 insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 1, '2020/09/08', '2020/01/04', 190159832, 'S19019862', 'Tareas', 'Si', '10:30:00', 04, 09, 2020, 'Aula 102' );
+
+/* Realizar las siguientes consultas:
+o 4 consultas que involucren una sola tabla
+o 4 consultas que involucren más de una tabla
+o 4 consultas que incluyan una subconsulta
+o 4 consultas que incluyan funciones de agregación
+o 4 consultas update
+o 4 consultas delete
+Nota: Para cada consulta es necesario escribir: el enunciado de la consulta, la
+consulta en álgebra relacional, la consulta en sql y la tabla resultado. */
+
+/* Sola tabla */
+
+/* Mas de una tabla */
+
+/* Con subconsulta */
+
+/* Que incluyan funciones de agregación */
+
+/* update */
+
+/* delete */
+
+/* 2 vistas */
+
+/* 2 cuentas de usuario con diferentes privilegios */
+
+CREATE USER 'mantenedor'@'localhost' IDENTIFIED BY 'mantenedor123'
+GRANT ALL PRIVILEGES ON Tutorias.* TO mantenedor@'localhost' WITH GRANT OPTION;
+
+CREATE USER 'directivo'@'localhost' IDENTIFIED BY 'directivo123'
+GRANT SELECT ON Tutorias.* TO 'directivo'@'localhost'
+
+CREATE USER 'secretariaAcademica'@'localhost' IDENTIFIED BY 'secretaria123'
+GRANT SELECT, UPDATE ON Tutorias.alumno TO 'secretariaAcademica'@'localhost'
+
+/* 1 trigger */
+
+/* Un procedimiento almacenado */

@@ -161,8 +161,30 @@ WHERE numpersonalTutor = (
 /* 2 vistas */
 
 -- nombre completo
+CREATE VIEW nombreCompletoAlumno AS
+SELECT nombre,
+    apellidoP,
+    apellidoM
+FROM alumno;
 
-/* 2 cuentas de usuario con diferentes privilegios */
+-- DROP VIEW nombreCompletoAlumno;
+
+SELECT * FROM nombreCompletoAlumno;
+
+CREATE VIEW nombreAlumnosAsistentes AS
+SELECT matricula,
+    nombre,
+    apellidoP,
+    apellidoM
+FROM alumno
+    INNER JOIN tutoria ON alumno.matricula = tutoria.matriculaAlumno
+WHERE tutoria.asistencia = 'Si'
+    OR 'si';
+
+-- DROP VIEW nombreAlumnosAsistentes;
+
+SELECT * FROM nombreAlumnosAsistentes;
+/* cuentas de usuario con diferentes privilegios */
 
 CREATE USER 'mantenedor'@'localhost' IDENTIFIED BY 'mantenedor123'
 GRANT ALL PRIVILEGES ON Tutorias.* TO mantenedor@'localhost' WITH GRANT OPTION;

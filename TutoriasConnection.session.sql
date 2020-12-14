@@ -24,7 +24,7 @@ CREATE table tutor (
     email VARCHAR(30) NOT NULL
 );
 CREATE table alumno_tutor (
-    matricula VARCHAR(10) NOT NUL,
+    matricula VARCHAR(10) NOT NULL,
     numpersonalTutor INT(9),
     PRIMARY KEY(
         matricula,
@@ -92,12 +92,133 @@ insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, 
 insert into tutoria ( noTutoria, periodoInicio, periodoFinal, numpersonalTutor, matriculaAlumno, asunto, asistencia, horaTutoria, diaTutoria, mesTutoria, yearTutoria, lugarTutoria ) values ( 1, '2020/09/08', '2020/01/04', 190159832, 'S19019862', 'Tareas', '', '10:30:00', 04, 09, 2020, 'Aula 102' );
 
 /* Sola tabla */
+select matricula,
+    nombre
+from alumno;
+
+select *
+from tutor
+where nombre = 'Nestor';
+
+select numpersonal,
+    nombre,
+    email
+from tutor
+where apellidoM = 'Pulido';
+
+select *
+from tutoria
+where numpersonalTutor = 190159832
+    and matriculaAlumno = 'S19012394';
 
 /* Mas de una tabla */
 
+select nombre,
+    asunto
+from tutor,
+    tutoria
+where tutor.numpersonal = tutoria.numpersonalTutor
+    and matriculaAlumno = 'S19013687';
+
+select nombre,
+    horaTutoria,
+    lugarTutoria
+from alumno,
+    tutoria
+where alumno.matricula = tutoria.matriculaAlumno;
+
+select alumno.nombre,
+    alumno.apellidoP,
+    tutor.nombre,
+    tutor.apellidoP
+from alumno,
+    tutoria,
+    tutor
+where alumno.matricula = tutoria.matriculaAlumno
+    and tutoria.numpersonalTutor = tutor.numpersonal;
+
+select alumno.nombre,
+    alumno.apellidoP,
+    alumno.apellidoM
+from alumno,
+    tutoria,
+    tutor
+where alumno.matricula = tutoria.matriculaAlumno
+    and tutoria.numpersonalTutor = tutor.numpersonal
+    and tutor.nombre = 'Enric';
+
 /* Con subconsulta */
 
+select nombre,
+    asunto
+from tutor,
+(
+        select *
+        from tutoria
+        where matriculaAlumno = 'S19013687'
+    ) t
+where tutor.numpersonal = t.numpersonalTutor;
+
+select alumno.nombre,
+    alumno.apellidoP,
+    alumno.apellidoM
+from alumno,
+    tutoria,
+(
+        select *
+        from tutor
+        where nombre = 'Enric'
+    ) t
+where alumno.matricula = tutoria.matriculaAlumno
+    and tutoria.numpersonalTutor = t.numpersonal;
+
+select tutor.nombre,
+    tutor.email,
+    tutoria.horaTutoria,
+    tutoria.lugartutoria
+from tutor,
+    tutoria,
+(
+        select *
+        from alumno
+        where email = 'S19012394@estudiantes.uv.mx'
+    ) a
+where a.matricula = tutoria.matriculaAlumno
+    and tutoria.numpersonalTutor = tutor.numpersonal;
+
+select tutor.numpersonal,
+    tutor.nombre,
+    tutoria.horaTutoria,
+    tutoria.lugarTutoria
+from tutor,
+    tutoria,
+(
+        select *
+        from alumno
+        where yearIngreso = 2019
+    ) a
+where a.matricula = tutoria.matriculaAlumno
+    and tutoria.numpersonalTutor = tutor.numpersonal;
+
 /* Que incluyan funciones de agregación */
+
+select count(nombre)
+from alumno;
+
+select max(horaTutoria)
+from tutoria;
+
+select min(matricula)
+from alumno;
+
+select count(alumno.nombre),
+    min(alumno.matricula),
+    max(tutor.numpersonal)
+from alumno,
+    tutor,
+    tutoria
+where alumno.matricula = tutoria.matriculaAlumno
+    and tutoria.numpersonalTutor = tutor.numpersonal;
 
 /* update */
 
@@ -195,22 +316,35 @@ WHERE tutoria.asistencia = 'Si'
 SELECT * FROM nombreAlumnosAsistentes;
 
 /* cuentas de usuario con diferentes privilegios */
-
+ -- Cuenta de usurio para darle mantenimiento a la base de datos Tutoria --
 CREATE USER 'mantenedor'@'localhost' IDENTIFIED BY 'mantenedor123'
 GRANT ALL PRIVILEGES ON Tutorias.* TO mantenedor@'localhost' WITH GRANT OPTION;
 SHOW GRANTS FOR 'mantenedor'@'localhost';
 
+-- Cuenta de usuario para acceder a todos los datos de todos los alumnos --
 CREATE USER 'directivo'@'localhost' IDENTIFIED BY 'directivo123'
 GRANT SELECT ON Tutorias.* TO 'directivo'@'localhost'
 SHOW GRANTS FOR 'directivo' @'localhost';
 
+-- Cuenta de usuario para el acceso unico a los datos de los alumnos --
 CREATE USER 'secretariaAcademica'@'localhost' IDENTIFIED BY 'secretaria123'
 GRANT SELECT, UPDATE ON Tutorias.alumno TO 'secretariaAcademica'@'localhost'
 SHOW GRANTS FOR 'secretariaAcademica' @'localhost';
+
 /* 1 trigger */
 DELIMITER //
-CREATE TRIGGER 
-
+CREATE TRIGGER tutorado
+AFTER
+INSERT ON alumno FOR EACH ROW BEGIN
+INSERT INTO alumno_tutor
+values (
+    select top 1 * from tutoria order by  desc
+    
+    SELECT * FROM tutoria LIMIT 1;
+);
+END;
+//
+DELIMITER;
 
 /* Procedimiento almacenado */
 
@@ -222,3 +356,12 @@ SET semestre = (semestre + 1);
 END;
 //
 DELIMITER ;
+
+
+/* |                                | */
+/* |            JAVA                | */
+/* |                                | */
+
+CREATE USER 'javaConnection'@'localhost' IDENTIFIED BY 'javaConnection';
+GRANT ALL PRIVILEGES ON Tutorias.* TO 'javaConnection'@'localhost' WITH GRANT OPTION;
+SHOW GRANTS FOR 'javaConnection' @'localhost';

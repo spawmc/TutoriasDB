@@ -1,5 +1,3 @@
-package spawn.JavaConnection;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,7 +12,7 @@ public class JavaConnection {
      */
     private String user = "javaConnection";
     private String pwd = "javaConnection";
-    private static String db = "Tutoria";
+    private static String db = "Tutorias";
     private String url = "jdbc:mariadb://localhost/" + db;
     private Connection conn = null;
 
@@ -33,11 +31,11 @@ public class JavaConnection {
                     JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace();
         }
     }
 
-    @Override
-    public ResultSet getQuery(String query){
+    public ResultSet getQuery(String query) {
         Statement state = null; // Para la creacion de la consulta
         ResultSet resultado = null;
         try {
@@ -48,6 +46,5 @@ public class JavaConnection {
         }
         return resultado;
     }
-
 
 }

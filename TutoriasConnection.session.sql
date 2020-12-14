@@ -25,7 +25,7 @@ CREATE table tutor (
 );
 CREATE table alumno_tutor (
     matricula VARCHAR(10) NOT NUL,
-    numpersonalTutor INT(9) NOT NULL,
+    numpersonalTutor INT(9),
     PRIMARY KEY(
         matricula,
         numpersonalTutor
@@ -208,7 +208,8 @@ CREATE USER 'secretariaAcademica'@'localhost' IDENTIFIED BY 'secretaria123'
 GRANT SELECT, UPDATE ON Tutorias.alumno TO 'secretariaAcademica'@'localhost'
 SHOW GRANTS FOR 'secretariaAcademica' @'localhost';
 /* 1 trigger */
-
+DELIMITER //
+CREATE TRIGGER 
 
 
 /* Procedimiento almacenado */

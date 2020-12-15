@@ -365,3 +365,11 @@ DELIMITER ;
 CREATE USER 'javaConnection'@'localhost' IDENTIFIED BY 'javaConnection';
 GRANT ALL PRIVILEGES ON Tutorias.* TO 'javaConnection'@'localhost' WITH GRANT OPTION;
 SHOW GRANTS FOR 'javaConnection' @'localhost';
+
+/* Para poder trabajar con la tabla que se muestra en java es necesario tener la vista nombreCompletoAlumno */
+
+CREATE VIEW nombreCompletoAlumno AS
+SELECT nombre,
+    apellidoP,
+    apellidoM
+FROM alumno;

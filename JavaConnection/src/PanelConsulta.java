@@ -41,6 +41,9 @@ public class PanelConsulta extends JFrame {
 
     }
 
+    /**
+     * Componentes necesarios para el complemento del JPanel
+     */
     private TextField NoPersonal = null;
     private TextField nombre = null;
     private TextField apellidoP = null;
@@ -49,6 +52,10 @@ public class PanelConsulta extends JFrame {
     private JButton insertar = null;
     private JButton cancelar = null;
 
+    /**
+     * Constructor con todos los componentes del JPanel
+     * @return JPanel
+     */
     private JPanel _crearPanelNorte() {
         JPanel p = new JPanel(new BorderLayout());
         JLabel insert = new JLabel("Ingresar tutor");
@@ -70,6 +77,9 @@ public class PanelConsulta extends JFrame {
         return p;
     }
 
+    /**
+     * Componentes en un layout tipo Box
+     */
     private JPanel _crearBoxLayout() {
         JPanel p = new JPanel();
         p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
@@ -94,6 +104,10 @@ public class PanelConsulta extends JFrame {
         return p;
     }
 
+    /**
+     * Panel central con la tabla resultado
+     * @return JPanel
+     */
     private JPanel _crearPanelCentral() {
         JPanel p = new JPanel(new BorderLayout());
         // Nombre de las columnas
@@ -121,8 +135,8 @@ public class PanelConsulta extends JFrame {
         //
 
         ResultSet resultado;
-        resultado = conn.getQuery("SELECT * FROM nombreCompletoAlumno");
-
+        resultado = conn.getQuery("SELECT * FROM nombreCompletoAlumno"); //Consulta
+        // Se ingresan los datos a la tabla
         try {
             while (resultado.next()) {
                 nombre = resultado.getString("nombre");
@@ -141,6 +155,9 @@ public class PanelConsulta extends JFrame {
         return p;
     }
 
+    /**
+     * Clase para evento del boton Ingresar
+     */
     public class escuchaIngresar implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -164,6 +181,9 @@ public class PanelConsulta extends JFrame {
 
     }
 
+    /**
+     * Clase para evento del boton cancelar
+     */
     public class escuchaCancelar implements ActionListener {
 
         @Override

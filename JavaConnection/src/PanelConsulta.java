@@ -72,14 +72,14 @@ public class PanelConsulta extends JFrame {
         p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
 
         NoPersonal = new TextField(30);
-        NoPersonal.setText("NoPersonal");
         nombre = new TextField(30);
-        nombre.setText("Nombre");
         apellidoP = new TextField(30);
-        apellidoP.setText("Apellido paterno");
         apellidoM = new TextField(30);
-        apellidoM.setText("Apellido materno");
         email = new TextField(30);
+        NoPersonal.setText("NoPersonal");
+        nombre.setText("Nombre");
+        apellidoP.setText("Apellido paterno");
+        apellidoM.setText("Apellido materno");
         email.setText("Email");
 
         p.add(NoPersonal);
@@ -139,7 +139,6 @@ public class PanelConsulta extends JFrame {
         return p;
     }
 
-
     public class escuchaIngresar implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -161,7 +160,11 @@ public class PanelConsulta extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            NoPersonal.setText("NoPersonal");
+            nombre.setText("Nombre");
+            apellidoP.setText("Apellido paterno");
+            apellidoM.setText("Apellido materno");
+            email.setText("Email");
         }
 
     }

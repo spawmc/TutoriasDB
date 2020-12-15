@@ -231,7 +231,7 @@ WHERE matriculaAlumno = (
         WHERE nombre = 'Jose'
             AND apellidoP = 'de Jesus'
             AND apellidoM = 'Hernandez'
-    )
+    );
 
 -- Actualizar la asistencia del alumno S19012345 --
 UPDATE tutoria
@@ -332,19 +332,19 @@ GRANT SELECT, UPDATE ON Tutorias.alumno TO 'secretariaAcademica'@'localhost'
 SHOW GRANTS FOR 'secretariaAcademica' @'localhost';
 
 /* 1 trigger */
-DELIMITER //
-CREATE TRIGGER tutorado
+DELIMITER / / CREATE TRIGGER tutorado
 AFTER
 INSERT ON alumno FOR EACH ROW BEGIN
 INSERT INTO alumno_tutor
 values (
-    select top 1 * from tutoria order by  desc
-    
-    SELECT * FROM tutoria LIMIT 1;
+        (
+            SELECT *
+            FROM tutoria
+            LIMIT 1;
+), NULL
 );
 END;
-//
-DELIMITER;
+/ / DELIMITER;
 
 /* Procedimiento almacenado */
 

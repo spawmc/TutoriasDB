@@ -1,20 +1,11 @@
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class Main {
     public static void main(String[] args) {
-        JavaConnection conexion = new JavaConnection();
-        ResultSet resultado;
-        resultado = conexion.getQuery("SELECT * FROM alumno");
-        String nombres;
+         PanelConsulta wind = new PanelConsulta();
+         wind.setVisible(true);
+        // JavaConnection conn = new JavaConnection();
+        // conn.insertTutor(190129318, "Miguel", "Gomez", "Martinez", "190129318@tutores.uv.mx");
 
-        try {
-            while (resultado.next()) {
-                nombres = resultado.getString("nombre");
-                System.out.println("Nombre: " + nombres);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // conn.runStatementInsert();
+
     }
 }

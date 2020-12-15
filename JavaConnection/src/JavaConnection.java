@@ -33,6 +33,7 @@ public class JavaConnection {
             if (conn != null) {
                 if (!msgConnection) {
                     JOptionPane.showMessageDialog(null, "¡Conexión con exito!", "", JOptionPane.INFORMATION_MESSAGE);
+                    msgConnection = true;
                 }
             }
         } catch (SQLException e) {
@@ -42,6 +43,10 @@ public class JavaConnection {
             JOptionPane.showMessageDialog(null, e);
             e.printStackTrace();
         }
+    }
+
+    public void setMsgConnection(boolean msgConnection) {
+        this.msgConnection = msgConnection;
     }
 
     public ResultSet getQuery(String query) {

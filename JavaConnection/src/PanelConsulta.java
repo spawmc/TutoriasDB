@@ -5,6 +5,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -22,6 +23,8 @@ public class PanelConsulta extends JFrame {
     private JTable tabla = null;
     DefaultTableModel modelo = null;
     JScrollPane desplazamiento = null;
+
+    private JavaConnection conn = new JavaConnection();
 
     public PanelConsulta() {
         super("SQLConnection");
@@ -117,9 +120,8 @@ public class PanelConsulta extends JFrame {
 
         //
 
-        JavaConnection conexion = new JavaConnection();
         ResultSet resultado;
-        resultado = conexion.getQuery("SELECT * FROM nombreCompletoAlumno");
+        resultado = conn.getQuery("SELECT * FROM nombreCompletoAlumno");
 
         try {
             while (resultado.next()) {
@@ -149,9 +151,15 @@ public class PanelConsulta extends JFrame {
             String aM = apellidoM.getText();
             String eM = email.getText();
 
-            JavaConnection conn = new JavaConnection();
             conn.insertTutor(nP, nom, aP, aM, eM);
             conn.runStatementInsert();
+
+            NoPersonal.setText("NoPersonal");
+            nombre.setText("Nombre");
+            apellidoP.setText("Apellido paterno");
+            apellidoM.setText("Apellido materno");
+            email.setText("Email");
+            JOptionPane.showMessageDialog(null, "Registro guardado con exito", "", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
